@@ -21,6 +21,7 @@ A simple and user-friendly GUI application for downloading YouTube videos and pl
 
 1. Clone the repository:
 
+
 ```
 git clone https://github.com/your-username/yt-dl-gui.git
 ```
