@@ -14,7 +14,6 @@ def update_progress_label(stream, chunk, bytes_remaining):
 def startdl():
     try:
         ytlink = link.get()
-        # Reset progress label to 0% at the start of a new download
         progressLabel.configure(text="Download progress: 0%")
         
         if "playlist" in ytlink:
