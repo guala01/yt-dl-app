@@ -42,7 +42,7 @@ pip install -r requirements.txt
 ```
 python main.py
 ```
-Alternatively use the release .exe file
+   Alternatively use the release .exe file
 
 2. Enter the YouTube video or playlist URL in the input field.
 
