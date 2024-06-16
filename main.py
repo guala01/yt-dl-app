@@ -21,22 +21,34 @@ def startdl():
             title.configure(text="Downloading Playlist", text_color="white")
             finishLabel.configure(text="")
             total_videos = len(ytobject.videos)
-            if optionmenu_var.get() == "Audio Only":
-                for index, audio in enumerate(ytobject.videos):
-                    audio.register_on_progress_callback(update_progress_label)
-                    audio.streams.get_audio_only().download()
-            elif optionmenu_var.get() == "Highest Quality":
-                for index, video in enumerate(ytobject.videos):
-                    video.register_on_progress_callback(update_progress_label)
-                    video.streams.get_highest_resolution().download()
-            elif optionmenu_var.get() == "Low Quality":
-                for index, video in enumerate(ytobject.videos):
-                    video.register_on_progress_callback(update_progress_label)
-                    video.streams.get_lowest_resolution().download()
-            else:
-                print("var not defined")
-                return
-            finishLabel.configure(text="Download Completed")
+            downloaded_videos = 0
+            
+            for video in ytobject.videos:
+                try:
+                    if optionmenu_var.get() == "Audio Only":
+                        audio_stream = video.streams.get_audio_only()
+                        audio_stream.download()
+                        downloaded_videos += 1
+                        percentage = (downloaded_videos / total_videos) * 100
+                        progressLabel.configure(text=f"Download progress: {percentage:.2f}%")
+                    elif optionmenu_var.get() == "Highest Quality":
+                        video.register_on_progress_callback(update_progress_label)
+                        video.streams.get_highest_resolution().download()
+                        downloaded_videos += 1
+                    elif optionmenu_var.get() == "Low Quality":
+                        video.register_on_progress_callback(update_progress_label)
+                        video.streams.get_lowest_resolution().download()
+                        downloaded_videos += 1
+                    else:
+                        print("var not defined")
+                        continue
+                    
+                    downloaded_videos += 1
+                except VideoUnavailable:
+                    print(f"Video {video.title} is unavailable. Skipping...")
+                    continue
+            
+            finishLabel.configure(text=f"Download Completed ({downloaded_videos}/{total_videos} videos)")
         else:
             ytobject = YouTube(ytlink)
             title.configure(text=ytobject.title, text_color="white")
@@ -54,10 +66,9 @@ def startdl():
                 print("var not defined")
                 return
             finishLabel.configure(text="Download Completed")
-    except VideoUnavailable:
-        finishLabel.configure(text="video unavailable", text_color="red")
     except RegexMatchError:
         finishLabel.configure(text="YouTube link invalid", text_color="red")
+
 
 def start_download_thread():
     download_thread = threading.Thread(target=startdl)
