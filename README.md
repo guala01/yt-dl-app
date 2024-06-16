@@ -7,8 +7,6 @@ A simple and user-friendly GUI application for downloading YouTube videos and pl
 - Download single YouTube videos or entire playlists
 - Choose the desired quality: Audio Only, Highest Quality, or Low Quality
 - Progress tracking: Displays the download progress in real-time
-- Error handling: Notifies the user if the video is unavailable or the link is invalid
-- Executable packaging: Can be packaged into a standalone executable for easy distribution
 
 ## Prerequisites
 
