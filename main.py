@@ -95,7 +95,7 @@ def showoptions():
 
 
 # app appearance
-customtkinter.set_appearance_mode("System")
+customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("dark-blue")
 
 # app frame
